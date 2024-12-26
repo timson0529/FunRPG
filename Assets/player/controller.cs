@@ -7,6 +7,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
     private bool isMoving = false; // 紀錄是否正在移動
     private Vector2 input; // 玩家輸入
     private Animator animator;
+    public LayerMask solidobjectLayer;
+    public LayerMask grassLayer;
 
     private void Awake()
     {
@@ -25,7 +27,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
                 animator.SetFloat("moveX", input.x);
                 animator.SetFloat("moveY", input.y);
                 Vector3 targetPos = transform.position + new Vector3(input.x, input.y, 0f);
-                StartCoroutine(Move(targetPos));
+                if(walkable(targetPos))
+                    StartCoroutine(Move(targetPos));
             }
         }
         animator.SetBool("isMoving", isMoving);
@@ -41,5 +44,27 @@ public class NewMonoBehaviourScript : MonoBehaviour
         }
         transform.position = targetPos; // 確保位置完全正確
         isMoving = false; // 移動結束
+        checkencounter();
     }
+
+    private bool walkable(Vector3 targetPos)
+    {
+        if (Physics2D.OverlapCircle(targetPos,0.3f,solidobjectLayer) != null)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    private void checkencounter()
+    {
+        if (Physics2D.OverlapCircle(transform.position, 0.2f, grassLayer) != null)
+        {
+            if(Random.Range(1, 101) < 10)
+            {
+                Debug.Log("Encountered monster");
+            }
+        }
+    }
+
 }
