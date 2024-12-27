@@ -9,6 +9,8 @@ public class NewMonoBehaviourScript : MonoBehaviour
     private Animator animator;
     public LayerMask solidobjectLayer;
     public LayerMask grassLayer;
+    public LayerMask interactableLayer;
+    public LayerMask portalLayer;
 
     private void Awake()
     {
@@ -32,6 +34,20 @@ public class NewMonoBehaviourScript : MonoBehaviour
             }
         }
         animator.SetBool("isMoving", isMoving);
+        if (Input.GetKeyDown(KeyCode.E))
+            interact();
+
+    }
+
+    void interact()
+    {
+        var facingdir = new Vector3(animator.GetFloat("moveX"), animator.GetFloat("moveY"));
+        var interactPos = transform.position + facingdir;
+        var collider = Physics2D.OverlapCircle(interactPos, 0.3f, interactableLayer);
+        if(collider != null)
+        {
+            collider.GetComponent<interactable>()?.Interact();
+        }
     }
 
     IEnumerator Move(Vector3 targetPos)
@@ -49,7 +65,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     private bool walkable(Vector3 targetPos)
     {
-        if (Physics2D.OverlapCircle(targetPos,0.3f,solidobjectLayer) != null)
+        if (Physics2D.OverlapCircle(targetPos,0.3f,solidobjectLayer | interactableLayer) != null)
         {
             return false;
         }
@@ -58,12 +74,17 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     private void checkencounter()
     {
-        if (Physics2D.OverlapCircle(transform.position, 0.2f, grassLayer) != null)
+        // ÀË´ú¯ó¦a¼h¯Å¡AÄ²µoÀH¾÷¹J©Ç
+        if (Physics2D.OverlapCircle(transform.position, 0.5f, grassLayer) != null)
         {
-            if(Random.Range(1, 101) < 10)
+            if (Random.Range(1, 101) < 10)
             {
                 Debug.Log("Encountered monster");
             }
+        }
+        if (Physics2D.OverlapCircle(transform.position, 0.5f, portalLayer) != null)
+        {
+            Debug.Log("Encountered portal");
         }
     }
 
