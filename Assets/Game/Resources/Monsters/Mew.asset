@@ -10,16 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29005187744ee934bac954091913af5a, type: 3}
-  m_Name: Pikachu
+  m_Name: Mew
   m_EditorClassIdentifier: 
-  name: Pikachu
-  description: test
-  frontSprite: {fileID: 7551071871341178678, guid: 81a2350d20167a744b0fa26f74d23dca, type: 3}
-  backSprite: {fileID: -8302868845533362417, guid: 6af54963c33f75141a90f30586194d65, type: 3}
-  trpe: 3
-  maxHP: 55
-  attack: 81
-  defense: 60
-  spDefense: 50
-  spAttack: 40
-  speed: 90
+  name: 
+  description: 'rival
+
+'
+  frontSprite: {fileID: -1684986574045993299, guid: 198494d4da88ebd42b46f4373760fcc4, type: 3}
+  backSprite: {fileID: -1418734292068023813, guid: 8e9d7af4902c0d741b7ddde22531de2e, type: 3}
+  trpe: 10
+  maxHP: 100
+  attack: 100
+  defense: 100
+  spDefense: 100
+  spAttack: 100
+  speed: 100
