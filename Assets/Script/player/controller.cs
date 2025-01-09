@@ -29,7 +29,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
                 animator.SetFloat("moveX", input.x);
                 animator.SetFloat("moveY", input.y);
                 Vector3 targetPos = transform.position + new Vector3(input.x, input.y, 0f);
-                if(walkable(targetPos))
+                if (walkable(targetPos))
                     StartCoroutine(Move(targetPos));
             }
         }
@@ -44,7 +44,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
         var facingdir = new Vector3(animator.GetFloat("moveX"), animator.GetFloat("moveY"));
         var interactPos = transform.position + facingdir;
         var collider = Physics2D.OverlapCircle(interactPos, 0.3f, interactableLayer);
-        if(collider != null)
+        if (collider != null)
         {
             collider.GetComponent<interactable>()?.Interact();
         }
@@ -65,7 +65,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
 
     private bool walkable(Vector3 targetPos)
     {
-        if (Physics2D.OverlapCircle(targetPos,0.3f,solidobjectLayer | interactableLayer) != null)
+        if (Physics2D.OverlapCircle(targetPos, 0.3f, solidobjectLayer | interactableLayer) != null)
         {
             return false;
         }
